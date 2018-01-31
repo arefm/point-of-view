@@ -158,6 +158,8 @@ function fastifyView (fastify, opts, next) {
       if (!this.res.getHeader('content-type')) {
         this.header('Content-Type', 'text/html')
       }
+      if (typeof options._default !== 'undefined')
+        data = Object.assign({}, options._default, data)
       this.send(toHtml(data))
       return
     }
