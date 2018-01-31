@@ -153,13 +153,13 @@ function fastifyView (fastify, opts, next) {
     }
 
     const toHtml = lru.get(page)
+    if (typeof options._default !== 'undefined')
+      data = Object.assign({}, options._default, data)
 
     if (toHtml && prod) {
       if (!this.res.getHeader('content-type')) {
         this.header('Content-Type', 'text/html')
       }
-      if (typeof options._default !== 'undefined')
-        data = Object.assign({}, options._default, data)
       this.send(toHtml(data))
       return
     }
